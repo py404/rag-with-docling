@@ -479,20 +479,20 @@ with tab4:
                                             st.image(
                                                 img_with_boxes,
                                                 caption=f"Page {page_no + 1} - Highlighted region for Result {i}",
-                                                use_container_width=True
+                                                width='stretch'
                                             )
                                         except Exception as e:
                                             logger.error(f"Failed to draw bounding boxes on page {page_no}: {e}")
                                             st.error(f"Could not draw bounding boxes on page {page_no + 1}: {str(e)}")
                                             # Show the original image without boxes
-                                            st.image(page.image.pil_image, caption=f"Page {page_no + 1} (without highlighting)", use_container_width=True)
+                                            st.image(page.image.pil_image, caption=f"Page {page_no + 1} (without highlighting)", width='stretch')
                                             # Debug info
                                             with st.expander("🔍 Debug Info"):
                                                 st.json(result_bboxes)
                                                 st.code(f"Error: {type(e).__name__}: {str(e)}")
                                     elif hasattr(page, 'image') and page.image and hasattr(page.image, 'pil_image'):
                                         # No bboxes but has image
-                                        st.image(page.image.pil_image, caption=f"Page {page_no + 1}", use_container_width=True)
+                                        st.image(page.image.pil_image, caption=f"Page {page_no + 1}", width='stretch')
                                         st.info("Bounding box data not available for this result")
                         else:
                             st.info("No page location information available for this result")
@@ -519,7 +519,7 @@ with tab4:
                 if page_num is not None and page_num < num_pages:
                     page = pages_list[page_num]
                     if hasattr(page, 'image') and page.image and hasattr(page.image, 'pil_image'):
-                        st.image(page.image.pil_image, caption=f"Page {page_num + 1}", use_container_width=True)
+                        st.image(page.image.pil_image, caption=f"Page {page_num + 1}", width='stretch')
 
             # Show info about the feature
             with st.expander("ℹ️ About Visual Grounding"):
@@ -564,7 +564,7 @@ with tab4:
                             st.image(
                                 page.image.pil_image,
                                 caption=f"Page {page_num + 1}",
-                                use_container_width=True
+                                width='stretch'
                             )
                         else:
                             st.warning(f"⚠️ Page {page_num + 1} image object exists but pil_image is not available.")
