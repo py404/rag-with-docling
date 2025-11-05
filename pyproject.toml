@@ -16,6 +16,8 @@ dependencies = [
     "langchain>=0.3.27",
     "langchain-text-splitters>=0.3.11",
     "ipykernel>=6.31.0",
+    "pillow>=11.3.0",
+    "matplotlib>=3.9.4",
 ]
 
 [project.optional-dependencies]

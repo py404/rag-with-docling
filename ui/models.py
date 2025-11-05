@@ -110,8 +110,38 @@ class SearchResult(BaseModel):
     text: str
     score: float = Field(ge=0.0)
     chunk_id: int = Field(ge=0)
+    metadata: dict = Field(default_factory=dict, description="Chunk metadata with provenance")
 
     @property
     def preview(self) -> str:
         """Get text preview."""
         return self.text[:200] + "..." if len(self.text) > 200 else self.text
+
+
+class BoundingBox(BaseModel):
+    """Bounding box coordinates."""
+
+    l: float = Field(description="Left coordinate")
+    t: float = Field(description="Top coordinate")
+    r: float = Field(description="Right coordinate")
+    b: float = Field(description="Bottom coordinate")
+
+
+class ProvenanceInfo(BaseModel):
+    """Provenance information for document items."""
+
+    page_no: int = Field(description="Page number")
+    bbox: Optional[dict] = Field(default=None, description="Bounding box coordinates")
+
+
+class DocItemInfo(BaseModel):
+    """Document item information."""
+
+    prov: Optional[list[ProvenanceInfo]] = Field(default=None, description="Provenance list")
+
+
+class DocMeta(BaseModel):
+    """Document metadata for visual grounding."""
+
+    origin: dict = Field(description="Document origin information")
+    doc_items: list[DocItemInfo] = Field(default_factory=list, description="Document items")
